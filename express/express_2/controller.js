@@ -7,8 +7,16 @@ export const queryValue = (req, res) => {
     const queryValue = req.query.keyword
     const queryTopic = req.query.topic
     res.send(`Welcome to Users Page (${queryValue}) and Topic is ${queryTopic}`)
-} 
+}
 
 export const home = (req, res) => {
     res.send(`Welcome to home Page`)
+}
+
+export const userLogin = (req, res) => {
+    res.send("This IS Login Route")
+}
+
+export const userSignUp = (req, res) => {
+    res.send("This IS SignUp Route")
 }
