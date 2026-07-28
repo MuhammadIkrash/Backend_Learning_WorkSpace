@@ -2,8 +2,6 @@ import studentSchema from "../Models/student.models.js"
 const getAllStudent = async (req, res) => {
     const allStudent = await studentSchema.find()
     res.render('home', { allStudent });
-    console.log(allStudent);
-
 }
 
 const getShowStudent = async (req, res) => {
