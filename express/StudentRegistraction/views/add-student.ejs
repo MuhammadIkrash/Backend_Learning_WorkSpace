@@ -1,66 +1,175 @@
-<%- include('partials/header.ejs')  %> 
+<%- include('partials/header.ejs') %>
 
-    <!-- content -->
-    <main class="py-5">
-      <div class="container">
-        <div class="row justify-content-md-center">
-          <div class="col-md-8">
-            <div class="card">
-              <div class="card-header card-title">
-                <strong>Add New Contact</strong>
-              </div>      
-              <form action="/add-contact" method="post">    
-              <div class="card-body">
-                <div class="row">
-                  <div class="col-md-12">
-                    <div class="form-group row">
-                      <label for="first_name" class="col-md-3 col-form-label">First Name</label>
-                      <div class="col-md-9">
-                        <input type="text" name="first_name" id="first_name" class="form-control">
-                      </div>
-                    </div>
+<!-- Content -->
+<main class="py-5 bg-light min-vh-100">
+  <div class="container">
 
-                    <div class="form-group row">
-                      <label for="last_name" class="col-md-3 col-form-label">Last Name</label>
-                      <div class="col-md-9">
-                        <input type="text" name="last_name" id="last_name" class="form-control">
-                      </div>
-                    </div>
+    <div class="row justify-content-center">
+      <div class="col-lg-8 col-md-10">
 
-                    <div class="form-group row">
-                      <label for="email" class="col-md-3 col-form-label">Email</label>
-                      <div class="col-md-9">
-                        <input type="text" name="email" id="email" class="form-control">
-                      </div>
-                    </div>
+        <!-- Card -->
+        <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
 
-                    <div class="form-group row">
-                      <label for="phone" class="col-md-3 col-form-label">Phone</label>
-                      <div class="col-md-9">
-                        <input type="text" name="phone" id="phone" class="form-control">
-                      </div>
-                    </div>
+          <!-- Card Header -->
+          <div class="card-header bg-primary text-white border-0 p-4">
+            <h3 class="mb-1 fw-bold">
+              <i class="fa fa-user-plus me-2"></i>
+              Add New Contact
+            </h3>
 
-                    <div class="form-group row">
-                      <label for="name" class="col-md-3 col-form-label">Address</label>
-                      <div class="col-md-9">
-                        <textarea name="address" id="address" rows="3" class="form-control"></textarea>
-                      </div>
-                    </div>
-                    <hr>
-                    <div class="form-group row mb-0">
-                      <div class="col-md-9 offset-md-3">
-                          <button type="submit" class="btn btn-primary">Save</button>
-                          <a href="/" class="btn btn-outline-secondary">Cancel</a>
-                      </div>
-                    </div>
-                  </div>
+            <p class="mb-0 opacity-75">
+              Enter the contact details below
+            </p>
+          </div>
+
+          <!-- Form -->
+          <form action="/add-contact" method="post">
+
+            <div class="card-body p-4 p-md-5">
+
+              <!-- First Name -->
+              <div class="mb-4">
+                <label for="first_name" class="form-label fw-semibold">
+                  First Name
+                </label>
+
+                <div class="input-group">
+                  <span class="input-group-text bg-light">
+                    <i class="fa fa-user text-primary"></i>
+                  </span>
+
+                  <input
+                    type="text"
+                    name="first_name"
+                    id="first_name"
+                    class="form-control"
+                    placeholder="Enter first name"
+                    required
+                  >
                 </div>
               </div>
-              </form> 
+
+              <!-- Last Name -->
+              <div class="mb-4">
+                <label for="last_name" class="form-label fw-semibold">
+                  Last Name
+                </label>
+
+                <div class="input-group">
+                  <span class="input-group-text bg-light">
+                    <i class="fa fa-user text-primary"></i>
+                  </span>
+
+                  <input
+                    type="text"
+                    name="last_name"
+                    id="last_name"
+                    class="form-control"
+                    placeholder="Enter last name"
+                    required
+                  >
+                </div>
+              </div>
+
+              <!-- Email -->
+              <div class="mb-4">
+                <label for="email" class="form-label fw-semibold">
+                  Email
+                </label>
+
+                <div class="input-group">
+                  <span class="input-group-text bg-light">
+                    <i class="fa fa-envelope text-primary"></i>
+                  </span>
+
+                  <input
+                    type="email"
+                    name="email"
+                    id="email"
+                    class="form-control"
+                    placeholder="example@gmail.com"
+                    required
+                  >
+                </div>
+              </div>
+
+              <!-- Phone -->
+              <div class="mb-4">
+                <label for="phone" class="form-label fw-semibold">
+                  Phone
+                </label>
+
+                <div class="input-group">
+                  <span class="input-group-text bg-light">
+                    <i class="fa fa-phone text-primary"></i>
+                  </span>
+
+                  <input
+                    type="tel"
+                    name="phone"
+                    id="phone"
+                    class="form-control"
+                    placeholder="03XX-XXXXXXX"
+                    required
+                  >
+                </div>
+              </div>
+
+              <!-- Address -->
+              <div class="mb-4">
+                <label for="address" class="form-label fw-semibold">
+                  Address
+                </label>
+
+                <div class="input-group">
+                  <span class="input-group-text bg-light align-items-start pt-2">
+                    <i class="fa fa-map-marker text-primary"></i>
+                  </span>
+
+                  <textarea
+                    name="address"
+                    id="address"
+                    rows="4"
+                    class="form-control"
+                    placeholder="Enter complete address"
+                    required
+                  ></textarea>
+                </div>
+              </div>
+
             </div>
-          </div>
+
+            <!-- Footer -->
+            <div class="card-footer bg-white border-top p-4">
+              <div class="d-flex justify-content-end gap-2">
+
+                <a
+                  href="/"
+                  class="btn btn-outline-secondary px-4"
+                >
+                  <i class="fa fa-times me-1"></i>
+                  Cancel
+                </a>
+
+                <button
+                  type="submit"
+                  class="btn btn-primary px-4"
+                >
+                  <i class="fa fa-save me-1"></i>
+                  Save Contact
+                </button>
+
+              </div>
+            </div>
+
+          </form>
+
         </div>
+
       </div>
-    </main>
-    <%- include('partials/footer.ejs')  %> 
+    </div>
+
+  </div>
+</main>
+
+<%- include('partials/footer.ejs') %>
