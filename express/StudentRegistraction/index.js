@@ -1,29 +1,27 @@
 import express from 'express'
+import mongoose from 'mongoose'
+import methodOverride from "method-override";
+import router from './Routers/route.js';
+import "dotenv/config";
+
 const app = express();
+// Mango db Connection With Express
+mongoose.connect(process.env.DB_URI)
+    .then(() => {
+        console.log("DataBase Connected");
+    })
+    .catch((error) => {
+        console.log("Database Connection Error:", error);
+    });
+
+// MiddleWare
+app.use(methodOverride("_method"));
 app.set('view engine', "ejs")
 app.use(express.urlencoded({ extended: false }))
 app.use(express.static("public"))
-app.get('/', (req, res) => {
-    res.send('Hello World!');
-});
-app.get('/show-contact', (req, res) => {
-    res.send('Hello World!');
-});
-app.get('/add-contact', (req, res) => {
-    res.send('Hello World!');
-});
-app.post('/add-contact', (req, res) => {
-    res.send('Hello World!');
-});
-app.put('/update-contact', (req, res) => {
-    res.send('Hello World!');
-});
-app.get('/update-contact', (req, res) => {
-    res.send('Hello World!');
-});
-app.delete('/delete-contact', (req, res) => {
-    res.send('Hello World!');
-});
-app.listen(3000, () => {
+
+// Routes - Api
+app.use("/", router)
+app.listen(process.env.PORT, () => {
     console.log('Server app listening on 3000 port!');
 });
