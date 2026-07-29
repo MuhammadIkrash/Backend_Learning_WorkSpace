@@ -1,10 +1,10 @@
-import { getAllStudent, getShowStudent, getAddStudent, addStudent, updateStudent, getUpdateStudent, deleteStudent } from "../Controllers/controller.js"
+import { getAllStudent, showSingleStudent, getAddStudent, addStudent, updateStudent, getUpdateStudent, deleteStudent } from "../Controllers/controller.js"
 import express from 'express';
 const router = express.Router()
 
 router.get("/", getAllStudent)
 
-router.get("/show-contact/:id", getShowStudent)
+router.get("/show-contact/:id", showSingleStudent)
 
 router.get("/add-contact", getAddStudent)
 router.post("/add-contact", addStudent)

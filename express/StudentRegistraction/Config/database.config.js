@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+import "dotenv/config";
 export const DataBaseConnection = () => {
     mongoose.connect(process.env.DB_URI)
         .then(() => {
