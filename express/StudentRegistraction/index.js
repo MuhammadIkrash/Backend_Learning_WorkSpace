@@ -1,18 +1,11 @@
 import express from 'express'
-import mongoose from 'mongoose'
 import methodOverride from "method-override";
 import router from './Routers/route.js';
+import { DataBaseConnection } from "./Config/database.config.js"
 import "dotenv/config";
-
 const app = express();
 // Mango db Connection With Express
-mongoose.connect(process.env.DB_URI)
-    .then(() => {
-        console.log("DataBase Connected");
-    })
-    .catch((error) => {
-        console.log("Database Connection Error:", error);
-    });
+DataBaseConnection()
 
 // MiddleWare
 app.use(methodOverride("_method"));
