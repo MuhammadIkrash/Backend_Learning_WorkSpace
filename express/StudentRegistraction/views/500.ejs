@@ -1,0 +1,43 @@
+<%- include('partials/header.ejs') %>
+
+<main class="bg-light min-vh-100 d-flex align-items-center">
+  <div class="container">
+    <div class="row justify-content-center text-center">
+      <div class="col-md-8">
+
+        <i class="fa fa-exclamation-circle text-danger fa-5x mb-4"></i>
+
+        <h1 class="display-1 fw-bold text-danger">
+          500
+        </h1>
+
+        <h2 class="fw-bold">
+          Internal Server Error
+        </h2>
+
+        <% if (message) { %>
+
+          <p class="text-muted lead">
+            <%= message %>
+          </p>
+
+        <% } else { %>
+
+          <p class="text-muted lead">
+            Something went wrong on the server.
+            Please try again later.
+          </p>
+
+        <% } %>
+
+        <a href="/" class="btn btn-primary px-4">
+          <i class="fa fa-home me-2"></i>
+          Go Home
+        </a>
+
+      </div>
+    </div>
+  </div>
+</main>
+
+<%- include('partials/footer.ejs') %>

@@ -1,128 +1,188 @@
 <%- include('partials/header.ejs') %>
 
 <!-- Content -->
-<main class="py-5 bg-light min-vh-100">
-  <div class="container">
+<main class="py-3 py-md-5 bg-light min-vh-100">
+  <div class="container-fluid container-lg">
 
-    <div class="row">
+    <div class="row justify-content-center">
       <div class="col-12">
 
         <!-- Main Card -->
         <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
 
           <!-- Card Header -->
-          <div class="card-header bg-white border-0 p-4">
-            <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3">
+          <div class="card-header bg-white border-0 p-3 p-sm-4">
 
-              <div>
-                <h2 class="mb-1 fw-bold text-dark">
+            <div class="d-flex flex-column flex-md-row align-items-stretch align-items-md-center justify-content-between gap-3">
+
+              <!-- Heading -->
+              <div class="text-center text-md-start">
+                <h2 class="mb-1 fw-bold text-dark fs-4 fs-md-2">
                   <i class="fa fa-address-book text-success me-2"></i>
                   All Contacts
                 </h2>
-                <p class="text-muted mb-0">
+
+                <p class="text-muted mb-0 small">
                   Manage all your contacts from here
                 </p>
               </div>
 
-              <a href="/add-contact" class="btn btn-success px-4 py-2 rounded-3 shadow-sm">
+              <!-- Add Button -->
+              <a
+                href="/add-contact"
+                class="btn btn-success px-4 py-2 rounded-3 shadow-sm align-self-stretch align-self-md-center"
+              >
                 <i class="fa fa-plus-circle me-1"></i>
                 Add New
               </a>
 
             </div>
+
           </div>
 
+
           <!-- Card Body -->
-          <div class="card-body p-4">
+          <div class="card-body p-2 p-sm-3 p-md-4">
 
             <!-- Responsive Table -->
             <div class="table-responsive">
 
-              <table class="table table-hover align-middle mb-0">
+              <table class="table table-hover align-middle mb-0 text-nowrap">
 
                 <thead class="table-light">
                   <tr>
-                    <th scope="col" class="py-3">#</th>
-                    <th scope="col" class="py-3">First Name</th>
-                    <th scope="col" class="py-3">Last Name</th>
-                    <th scope="col" class="py-3">Email</th>
-                    <th scope="col" class="py-3">Phone</th>
-                    <th scope="col" class="py-3 text-center">Actions</th>
+                    <th scope="col" class="py-3 px-3">#</th>
+                    <th scope="col" class="py-3 px-3">First Name</th>
+                    <th scope="col" class="py-3 px-3">Last Name</th>
+                    <th scope="col" class="py-3 px-3">Email</th>
+                    <th scope="col" class="py-3 px-3">Phone</th>
+                    <th scope="col" class="py-3 px-3 text-center">
+                      Actions
+                    </th>
                   </tr>
                 </thead>
 
                 <tbody>
 
-                  <% allStudent.forEach((element,index) => { %>
+                  <% if (allStudent.length > 0) { %>
 
-                    <tr>
+                    <% allStudent.forEach((element, index) => { %>
 
-                      <td class="fw-semibold text-muted">
-                        <%= index + 1 %>
-                      </td>
+                      <tr>
 
-                      <td class="fw-semibold">
-                        <%= element.first_name %>
-                      </td>
+                        <!-- Number -->
+                        <td class="fw-semibold text-muted px-3">
+                          <%= obj.skip + index + 1 %>
+                        </td>
 
-                      <td>
-                        <%= element.last_name %>
-                      </td>
+                        <!-- First Name -->
+                        <td class="fw-semibold px-3">
+                          <%= element.first_name %>
+                        </td>
 
-                      <td>
-                        <span class="text-muted">
-                          <i class="fa fa-envelope me-1"></i>
-                          <%= element.email %>
-                        </span>
-                      </td>
+                        <!-- Last Name -->
+                        <td class="px-3">
+                          <%= element.last_name %>
+                        </td>
 
-                      <td>
-                        <span class="text-muted">
-                          <i class="fa fa-phone me-1"></i>
-                          <%= element.phone %>
-                        </span>
-                      </td>
-
-                      <td class="text-center">
-
-                        <!-- View -->
-                        <a 
-                          href="/show-contact/<%= element._id %>" 
-                          class="btn btn-sm btn-outline-info rounded-circle"
-                          title="Show"
-                        >
-                          <i class="fa fa-eye"></i>
-                        </a>
-
-                        <!-- Edit -->
-                        <a 
-                          href="/update-contact/<%= element._id %>" 
-                          class="btn btn-sm btn-outline-secondary rounded-circle"
-                          title="Edit"
-                        >
-                          <i class="fa fa-edit"></i>
-                        </a>
-
-                        <!-- Delete -->
-                        <form 
-                          action="/delete-contact/<%= element._id %>?_method=DELETE" 
-                          method="POST" 
-                          class="d-inline"
-                        >
-                          <button 
-                            type="submit" 
-                            class="btn btn-sm btn-outline-danger rounded-circle"
-                            title="Delete"
+                        <!-- Email -->
+                        <td class="px-3">
+                          <a
+                            href="mailto:<%= element.email %>"
+                            class="text-muted text-decoration-none"
                           >
-                            <i class="fa fa-times"></i>
-                          </button>
-                        </form>
+                            <i class="fa fa-envelope me-1"></i>
+                            <%= element.email %>
+                          </a>
+                        </td>
+
+                        <!-- Phone -->
+                        <td class="px-3">
+                          <span class="text-muted">
+                            <i class="fa fa-phone me-1"></i>
+                            <%= element.phone %>
+                          </span>
+                        </td>
+
+                        <!-- Actions -->
+                        <td class="px-3">
+
+                          <div class="d-flex justify-content-center align-items-center gap-2">
+
+                            <!-- View -->
+                            <a
+                              href="/show-contact/<%= element._id %>"
+                              class="btn btn-sm btn-outline-info rounded-circle d-flex align-items-center justify-content-center"
+                              style="width: 36px; height: 36px;"
+                              title="Show"
+                            >
+                              <i class="fa fa-eye"></i>
+                            </a>
+
+                            <!-- Edit -->
+                            <a
+                              href="/update-contact/<%= element._id %>"
+                              class="btn btn-sm btn-outline-secondary rounded-circle d-flex align-items-center justify-content-center"
+                              style="width: 36px; height: 36px;"
+                              title="Edit"
+                            >
+                              <i class="fa fa-edit"></i>
+                            </a>
+
+                            <!-- Delete -->
+                            <form
+                              action="/delete-contact/<%= element._id %>?_method=DELETE"
+                              method="POST"
+                              class="d-inline"
+                            >
+                              <button
+                                type="submit"
+                                class="btn btn-sm btn-outline-danger rounded-circle d-flex align-items-center justify-content-center"
+                                style="width: 36px; height: 36px;"
+                                title="Delete"
+                              >
+                                <i class="fa fa-times"></i>
+                              </button>
+                            </form>
+
+                          </div>
+
+                        </td>
+
+                      </tr>
+
+                    <% }) %>
+
+                  <% } else { %>
+
+                    <!-- Empty State -->
+                    <tr>
+                      <td colspan="6" class="text-center py-5">
+
+                        <div class="text-muted">
+                          <i class="fa fa-address-book fa-3x mb-3"></i>
+
+                          <h5 class="fw-semibold">
+                            No Contacts Found
+                          </h5>
+
+                          <p class="mb-3">
+                            You haven't added any contacts yet.
+                          </p>
+
+                          <a
+                            href="/add-contact"
+                            class="btn btn-success rounded-3 px-4"
+                          >
+                            <i class="fa fa-plus-circle me-1"></i>
+                            Add Your First Contact
+                          </a>
+                        </div>
 
                       </td>
-
                     </tr>
 
-                  <% }) %>
+                  <% } %>
 
                 </tbody>
 
@@ -130,30 +190,94 @@
 
             </div>
 
+
             <!-- Pagination -->
-            <nav class="mt-4">
-              <ul class="pagination justify-content-center mb-0">
+            <% if (obj.totalPage > 1) { %>
 
-                <li class="page-item disabled">
-                  <a class="page-link" href="#">
-                    <i class="fa fa-angle-left me-1"></i>
-                    Previous
-                  </a>
-                </li>
+              <nav
+                class="mt-4"
+                aria-label="Student pagination"
+              >
 
-                <li class="page-item active">
-                  <a class="page-link" href="#">1</a>
-                </li>
+                <ul class="pagination justify-content-center flex-wrap mb-0">
 
-                <li class="page-item">
-                  <a class="page-link" href="#">
-                    Next
-                    <i class="fa fa-angle-right ms-1"></i>
-                  </a>
-                </li>
+                  <!-- Previous -->
+                  <li
+                    class="page-item <%= obj.page <= 1 ? 'disabled' : '' %>"
+                  >
 
-              </ul>
-            </nav>
+                    <% if (obj.page > 1) { %>
+
+                      <a
+                        class="page-link"
+                        href="/?page=<%= obj.page - 1 %>&limit=<%= obj.limit %>"
+                      >
+                        <i class="fa fa-angle-left me-1"></i>
+                        Previous
+                      </a>
+
+                    <% } else { %>
+
+                      <span class="page-link">
+                        <i class="fa fa-angle-left me-1"></i>
+                        Previous
+                      </span>
+
+                    <% } %>
+
+                  </li>
+
+
+                  <!-- Page Numbers -->
+                  <% for (let i = 1; i <= obj.totalPage; i++) { %>
+
+                    <li
+                      class="page-item <%= obj.page === i ? 'active' : '' %>"
+                    >
+
+                      <a
+                        class="page-link"
+                        href="/?page=<%= i %>&limit=<%= obj.limit %>"
+                      >
+                        <%= i %>
+                      </a>
+
+                    </li>
+
+                  <% } %>
+
+
+                  <!-- Next -->
+                  <li
+                    class="page-item <%= obj.page >= obj.totalPage ? 'disabled' : '' %>"
+                  >
+
+                    <% if (obj.page < obj.totalPage) { %>
+
+                      <a
+                        class="page-link"
+                        href="/?page=<%= obj.page + 1 %>&limit=<%= obj.limit %>"
+                      >
+                        Next
+                        <i class="fa fa-angle-right ms-1"></i>
+                      </a>
+
+                    <% } else { %>
+
+                      <span class="page-link">
+                        Next
+                        <i class="fa fa-angle-right ms-1"></i>
+                      </span>
+
+                    <% } %>
+
+                  </li>
+
+                </ul>
+
+              </nav>
+
+            <% } %>
 
           </div>
 

@@ -11,7 +11,7 @@ app.use(methodOverride("_method"));
 app.set('view engine', "ejs")
 app.use(express.urlencoded({ extended: false }))
 app.use(express.static("public"))
-
+app.use(express.json());
 // Routes
 app.use("/", router)
 // Server Listen
