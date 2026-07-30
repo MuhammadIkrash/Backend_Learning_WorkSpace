@@ -75,7 +75,6 @@ const updateStudent = async (req, res) => {
             return res.status(404).render('404', { message: "404 Error: Page Not Found" });
         }
         const student = await studentSchema.findByIdAndUpdate(_id, req.body, {
-            new: true,
             runValidators: true
         })
 

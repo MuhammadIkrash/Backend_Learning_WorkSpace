@@ -3,7 +3,6 @@
 <!-- Content -->
 <main class="py-5 bg-light min-vh-100">
   <div class="container">
-
     <div class="row justify-content-center">
       <div class="col-lg-8 col-md-10">
 
@@ -23,20 +22,61 @@
           </div>
 
           <!-- Form -->
-          <form 
-            action="/update-contact/<%= updateSingleStudent._id %>?_method=PUT" 
+          <form
+            action="/update-contact/<%= updateSingleStudent._id %>?_method=PUT"
             method="post"
           >
 
+            <!-- Rate Limit Message -->
+            <% if (typeof message !== "undefined" && message) { %>
+
+              <div class="alert alert-danger mx-4 mt-4 mb-0 rounded-3">
+
+                <div class="d-flex align-items-center gap-2">
+                  <i class="fa fa-exclamation-circle"></i>
+
+                  <span>
+                    <%= message %>
+                  </span>
+                </div>
+
+                <!-- Countdown -->
+                <% if (typeof retryAfter !== "undefined" && retryAfter) { %>
+
+                  <div class="mt-2">
+                    <i class="fa fa-clock-o me-1"></i>
+
+                    Try again after:
+                    <strong
+  id="countdown"
+  data-time="<%= retryAfter || 0 %>"
+>
+  Loading...
+</strong>
+                  </div>
+
+                <% } %>
+
+              </div>
+
+            <% } %>
+
+
+            <!-- Card Body -->
             <div class="card-body p-4 p-md-5">
 
               <!-- First Name -->
               <div class="mb-4">
-                <label for="first_name" class="form-label fw-semibold">
+
+                <label
+                  for="first_name"
+                  class="form-label fw-semibold"
+                >
                   First Name
                 </label>
 
                 <div class="input-group">
+
                   <span class="input-group-text bg-light">
                     <i class="fa fa-user text-primary"></i>
                   </span>
@@ -49,17 +89,25 @@
                     class="form-control"
                     placeholder="Enter first name"
                     required
-                  >
+                  />
+
                 </div>
+
               </div>
+
 
               <!-- Last Name -->
               <div class="mb-4">
-                <label for="last_name" class="form-label fw-semibold">
+
+                <label
+                  for="last_name"
+                  class="form-label fw-semibold"
+                >
                   Last Name
                 </label>
 
                 <div class="input-group">
+
                   <span class="input-group-text bg-light">
                     <i class="fa fa-user text-primary"></i>
                   </span>
@@ -72,17 +120,25 @@
                     class="form-control"
                     placeholder="Enter last name"
                     required
-                  >
+                  />
+
                 </div>
+
               </div>
+
 
               <!-- Email -->
               <div class="mb-4">
-                <label for="email" class="form-label fw-semibold">
+
+                <label
+                  for="email"
+                  class="form-label fw-semibold"
+                >
                   Email
                 </label>
 
                 <div class="input-group">
+
                   <span class="input-group-text bg-light">
                     <i class="fa fa-envelope text-primary"></i>
                   </span>
@@ -95,17 +151,25 @@
                     class="form-control"
                     placeholder="example@gmail.com"
                     required
-                  >
+                  />
+
                 </div>
+
               </div>
+
 
               <!-- Phone -->
               <div class="mb-4">
-                <label for="phone" class="form-label fw-semibold">
+
+                <label
+                  for="phone"
+                  class="form-label fw-semibold"
+                >
                   Phone
                 </label>
 
                 <div class="input-group">
+
                   <span class="input-group-text bg-light">
                     <i class="fa fa-phone text-primary"></i>
                   </span>
@@ -118,18 +182,28 @@
                     class="form-control"
                     placeholder="03XX-XXXXXXX"
                     required
-                  >
+                  />
+
                 </div>
+
               </div>
+
 
               <!-- Address -->
               <div class="mb-4">
-                <label for="address" class="form-label fw-semibold">
+
+                <label
+                  for="address"
+                  class="form-label fw-semibold"
+                >
                   Address
                 </label>
 
                 <div class="input-group">
-                  <span class="input-group-text bg-light align-items-start pt-2">
+
+                  <span
+                    class="input-group-text bg-light align-items-start pt-2"
+                  >
                     <i class="fa fa-map-marker text-primary"></i>
                   </span>
 
@@ -141,15 +215,20 @@
                     placeholder="Enter complete address"
                     required
                   ><%= updateSingleStudent.address %></textarea>
+
                 </div>
+
               </div>
 
             </div>
 
+
             <!-- Footer -->
             <div class="card-footer bg-white border-top p-4">
+
               <div class="d-flex justify-content-end gap-2">
 
+                <!-- Cancel -->
                 <a
                   href="/"
                   class="btn btn-outline-secondary px-4"
@@ -158,6 +237,7 @@
                   Cancel
                 </a>
 
+                <!-- Update -->
                 <button
                   type="submit"
                   class="btn btn-primary px-4"
@@ -167,6 +247,7 @@
                 </button>
 
               </div>
+
             </div>
 
           </form>
@@ -175,8 +256,37 @@
 
       </div>
     </div>
-
   </div>
 </main>
+
+
+<!-- Countdown Timer -->
+<% if (typeof retryAfter !== "undefined" && retryAfter) { %>
+
+<script>
+  const countdown = document.getElementById("countdown");
+
+  let timeLeft = Number(countdown.dataset.time);
+
+  const timer = setInterval(() => {
+
+    const minutes = Math.floor(timeLeft / 60);
+    const seconds = timeLeft % 60;
+
+    countdown.textContent =
+      `${minutes}:${seconds.toString().padStart(2, "0")}`;
+
+    if (timeLeft <= 0) {
+      clearInterval(timer);
+      countdown.textContent = "You can try again now";
+      return;
+    }
+
+    timeLeft--;
+
+  }, 1000);
+</script>
+<% } %>
+
 
 <%- include('partials/footer.ejs') %>
