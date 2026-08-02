@@ -2,6 +2,7 @@ import { getAllStudent, showSingleStudent, getAddStudent, addStudent, updateStud
 import express from 'express';
 import studentSchema from "../Models/student.models.js"
 import { rateLimit } from "express-rate-limit"
+import { StudentValidation } from "../From_validation/student.validation.js";
 
 const router = express.Router()
 
@@ -30,8 +31,7 @@ router.get("/", getAllStudent)
 router.get("/show-contact/:id", showSingleStudent)
 
 router.get("/add-contact", getAddStudent)
-router.post("/add-contact", RateLimit(2, 2, "add-student"), addStudent)
-
+router.post("/add-contact", RateLimit(2, 10, "add-student"), StudentValidation, addStudent)
 router.get("/update-contact/:id", getUpdateStudent)
 router.put("/update-contact/:id", RateLimit(2, 3, "update-student"), updateStudent)
 

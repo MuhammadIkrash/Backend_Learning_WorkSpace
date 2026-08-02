@@ -1,6 +1,6 @@
 import mongoose from "mongoose"
 import studentSchema from "../Models/student.models.js"
-
+import { validationResult } from "express-validator"
 // Get AllStudent 
 const getAllStudent = async (req, res) => {
     try {
@@ -48,7 +48,10 @@ const showSingleStudent = async (req, res) => {
 // Get Add Student Form Page
 const getAddStudent = async (req, res) => {
     try {
-        return res.render("add-student")
+        return res.render("add-student", {
+            errors: [],
+            oldData: {}
+        })
     } catch (error) {
         return res.status(500).render("500", {
             message: error.message
@@ -58,8 +61,18 @@ const getAddStudent = async (req, res) => {
 // Add Student Post Route
 const addStudent = async (req, res) => {
     try {
-        await studentSchema.create(req.body)
-        return res.redirect('/')
+        const error = validationResult(req)
+        if (!error.isEmpty()) {
+            res.render('add-student', {
+                errors: error.array(),
+                oldData: req.body
+            });
+
+        } else {
+            await studentSchema.create(req.body)
+            return res.redirect('/')
+        }
+
     } catch (error) {
         return res.status(500).render("500", {
             message: error.message

@@ -1,16 +1,14 @@
 <%- include('partials/header.ejs') %>
 
-<!-- Content -->
 <main class="py-5 bg-light min-vh-100">
   <div class="container">
 
     <div class="row justify-content-center">
       <div class="col-lg-8 col-md-10">
 
-        <!-- Card -->
         <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
 
-          <!-- Card Header -->
+          <!-- Header -->
           <div class="card-header bg-primary text-white border-0 p-4">
             <h3 class="mb-1 fw-bold">
               <i class="fa fa-user-plus me-2"></i>
@@ -22,12 +20,12 @@
             </p>
           </div>
 
-          <!-- Form -->
           <form action="/add-contact" method="post">
-   <!-- Rate Limit Message -->
+
+            <!-- Rate Limit Message -->
             <% if (typeof message !== "undefined" && message) { %>
 
-              <div class="alert alert-danger mx-4 mt-4 mb-0 rounded-3">
+              <div class="alert alert-danger mx-4 mt-4 mb-0 rounded-3 border-0 shadow-sm">
 
                 <div class="d-flex align-items-center gap-2">
                   <i class="fa fa-exclamation-circle"></i>
@@ -37,19 +35,19 @@
                   </span>
                 </div>
 
-                <!-- Countdown -->
                 <% if (typeof retryAfter !== "undefined" && retryAfter) { %>
 
                   <div class="mt-2">
                     <i class="fa fa-clock-o me-1"></i>
 
                     Try again after:
+
                     <strong
-  id="countdown"
-  data-time="<%= retryAfter || 0 %>"
->
-  Loading...
-</strong>
+                      id="countdown"
+                      data-time="<%= retryAfter || 0 %>"
+                    >
+                      Loading...
+                    </strong>
                   </div>
 
                 <% } %>
@@ -58,16 +56,46 @@
 
             <% } %>
 
-    </div>
+
+            <!-- Validation Error Summary -->
+            <% if (typeof errors !== "undefined" && errors.length > 0) { %>
+
+              <div class="alert alert-danger mx-4 mt-4 mb-0 rounded-3 border-0 shadow-sm">
+
+                <div class="d-flex align-items-center mb-2">
+                  <i class="fa fa-exclamation-triangle me-2"></i>
+
+                  <strong>
+                    Please fix the following errors:
+                  </strong>
+                </div>
+
+                <ul class="mb-0 ps-4">
+                  <% errors.forEach((error) => { %>
+
+                    <li class="mb-1">
+                      <%= error.msg %>
+                    </li>
+
+                  <% }) %>
+                </ul>
+
+              </div>
+
+            <% } %>
+
+
             <div class="card-body p-4 p-md-5">
 
               <!-- First Name -->
               <div class="mb-4">
+
                 <label for="first_name" class="form-label fw-semibold">
                   First Name
                 </label>
 
                 <div class="input-group">
+
                   <span class="input-group-text bg-light">
                     <i class="fa fa-user text-primary"></i>
                   </span>
@@ -76,20 +104,37 @@
                     type="text"
                     name="first_name"
                     id="first_name"
-                    class="form-control"
+                    class="form-control
+                    <%= errors?.some(e => e.path === 'first_name') ? 'is-invalid' : '' %>"
                     placeholder="Enter first name"
-                    required
+                    value="<%= oldData?.first_name || '' %>"
                   >
+
                 </div>
+
+                <% const firstNameError = errors?.find(e => e.path === 'first_name'); %>
+
+                <% if (firstNameError) { %>
+
+                  <div class="text-danger small mt-2">
+                    <i class="fa fa-exclamation-circle me-1"></i>
+                    <%= firstNameError.msg %>
+                  </div>
+
+                <% } %>
+
               </div>
+
 
               <!-- Last Name -->
               <div class="mb-4">
+
                 <label for="last_name" class="form-label fw-semibold">
                   Last Name
                 </label>
 
                 <div class="input-group">
+
                   <span class="input-group-text bg-light">
                     <i class="fa fa-user text-primary"></i>
                   </span>
@@ -98,20 +143,37 @@
                     type="text"
                     name="last_name"
                     id="last_name"
-                    class="form-control"
+                    class="form-control
+                    <%= errors?.some(e => e.path === 'last_name') ? 'is-invalid' : '' %>"
                     placeholder="Enter last name"
-                    required
+                    value="<%= oldData?.last_name || '' %>"
                   >
+
                 </div>
+
+                <% const lastNameError = errors?.find(e => e.path === 'last_name'); %>
+
+                <% if (lastNameError) { %>
+
+                  <div class="text-danger small mt-2">
+                    <i class="fa fa-exclamation-circle me-1"></i>
+                    <%= lastNameError.msg %>
+                  </div>
+
+                <% } %>
+
               </div>
+
 
               <!-- Email -->
               <div class="mb-4">
+
                 <label for="email" class="form-label fw-semibold">
                   Email
                 </label>
 
                 <div class="input-group">
+
                   <span class="input-group-text bg-light">
                     <i class="fa fa-envelope text-primary"></i>
                   </span>
@@ -120,20 +182,37 @@
                     type="email"
                     name="email"
                     id="email"
-                    class="form-control"
+                    class="form-control
+                    <%= errors?.some(e => e.path === 'email') ? 'is-invalid' : '' %>"
                     placeholder="example@gmail.com"
-                    required
+                    value="<%= oldData?.email || '' %>"
                   >
+
                 </div>
+
+                <% const emailError = errors?.find(e => e.path === 'email'); %>
+
+                <% if (emailError) { %>
+
+                  <div class="text-danger small mt-2">
+                    <i class="fa fa-exclamation-circle me-1"></i>
+                    <%= emailError.msg %>
+                  </div>
+
+                <% } %>
+
               </div>
+
 
               <!-- Phone -->
               <div class="mb-4">
+
                 <label for="phone" class="form-label fw-semibold">
                   Phone
                 </label>
 
                 <div class="input-group">
+
                   <span class="input-group-text bg-light">
                     <i class="fa fa-phone text-primary"></i>
                   </span>
@@ -142,20 +221,37 @@
                     type="tel"
                     name="phone"
                     id="phone"
-                    class="form-control"
+                    class="form-control
+                    <%= errors?.some(e => e.path === 'phone') ? 'is-invalid' : '' %>"
                     placeholder="03XX-XXXXXXX"
-                    required
+                    value="<%= oldData?.phone || '' %>"
                   >
+
                 </div>
+
+                <% const phoneError = errors?.find(e => e.path === 'phone'); %>
+
+                <% if (phoneError) { %>
+
+                  <div class="text-danger small mt-2">
+                    <i class="fa fa-exclamation-circle me-1"></i>
+                    <%= phoneError.msg %>
+                  </div>
+
+                <% } %>
+
               </div>
+
 
               <!-- Address -->
               <div class="mb-4">
+
                 <label for="address" class="form-label fw-semibold">
                   Address
                 </label>
 
                 <div class="input-group">
+
                   <span class="input-group-text bg-light align-items-start pt-2">
                     <i class="fa fa-map-marker text-primary"></i>
                   </span>
@@ -164,17 +260,32 @@
                     name="address"
                     id="address"
                     rows="4"
-                    class="form-control"
+                    class="form-control
+                    <%= errors?.some(e => e.path === 'address') ? 'is-invalid' : '' %>"
                     placeholder="Enter complete address"
-                    required
-                  ></textarea>
+                  ><%= oldData?.address || '' %></textarea>
+
                 </div>
+
+                <% const addressError = errors?.find(e => e.path === 'address'); %>
+
+                <% if (addressError) { %>
+
+                  <div class="text-danger small mt-2">
+                    <i class="fa fa-exclamation-circle me-1"></i>
+                    <%= addressError.msg %>
+                  </div>
+
+                <% } %>
+
               </div>
 
             </div>
 
+
             <!-- Footer -->
             <div class="card-footer bg-white border-top p-4">
+
               <div class="d-flex justify-content-end gap-2">
 
                 <a
@@ -194,6 +305,7 @@
                 </button>
 
               </div>
+
             </div>
 
           </form>
@@ -206,9 +318,12 @@
   </div>
 </main>
 
+
+<!-- Countdown -->
 <% if (typeof retryAfter !== "undefined" && retryAfter) { %>
 
 <script>
+
   const countdown = document.getElementById("countdown");
 
   let timeLeft = Number(countdown.dataset.time);
@@ -216,21 +331,29 @@
   const timer = setInterval(() => {
 
     const minutes = Math.floor(timeLeft / 60);
+
     const seconds = timeLeft % 60;
 
     countdown.textContent =
       `${minutes}:${seconds.toString().padStart(2, "0")}`;
 
     if (timeLeft <= 0) {
+
       clearInterval(timer);
-      countdown.textContent = "You can try again now";
+
+      countdown.textContent =
+        "You can try again now";
+
       return;
+
     }
 
     timeLeft--;
 
   }, 1000);
+
 </script>
+
 <% } %>
 
 
