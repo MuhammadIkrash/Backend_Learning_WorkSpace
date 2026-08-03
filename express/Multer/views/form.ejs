@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Form</title>
+    <!-- Premium Google Fonts: Inter -->
+    <link rel="preconnect" href="https://googleapis.com" />
+    <link rel="preconnect" href="https://gstatic.com" crossorigin />
+    <link
+      href="https://googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap 5.3 CDN -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <style>
+      body {
+        font-family:
+          "Inter",
+          -apple-system,
+          BlinkMacSystemFont,
+          sans-serif;
+        background-color: #fcfcfd;
+        color: #101828;
+        -webkit-font-smoothing: antialiased;
+      }
+      .premium-card {
+        background: #ffffff;
+        border: 1px solid #eaecf0;
+        box-shadow:
+          0px 1px 3px rgba(16, 24, 40, 0.1),
+          0px 1px 2px rgba(16, 24, 40, 0.06);
+        border-radius: 12px;
+      }
+      .form-label-premium {
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: #344054;
+        margin-bottom: 6px;
+      }
+      .form-control-premium {
+        border: 1px solid #d0d5dd !important;
+        border-radius: 8px !important;
+        color: #101828 !important;
+        font-size: 0.95rem !important;
+        padding: 10px 14px !important;
+        box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05) !important;
+        transition: all 0.2s ease-in-out;
+      }
+      .form-control-premium:focus {
+        border-color: #7f56d9 !important;
+        box-shadow:
+          0px 1px 2px rgba(16, 24, 40, 0.05),
+          0px 0px 0px 4px #f4ebff !important;
+      }
+      .form-control-premium::placeholder {
+        color: #667085;
+        font-weight: 400;
+      }
+      /* Modernize the file input native button layout */
+      .form-control-premium::file-selector-button {
+        background-color: #f9fafb;
+        color: #344054;
+        border: 1px solid #d0d5dd;
+        border-radius: 6px;
+        padding: 4px 12px;
+        font-weight: 500;
+        font-size: 0.85rem;
+        margin-right: 12px;
+        transition: all 0.2s;
+      }
+      .form-control-premium:hover::file-selector-button {
+        background-color: #f2f4f7;
+        cursor: pointer;
+      }
+      .btn-premium {
+        background-color: #7f56d9;
+        border: 1px solid #7f56d9;
+        color: #ffffff;
+        font-weight: 600;
+        font-size: 0.95rem;
+        padding: 10px 16px;
+        border-radius: 8px;
+        box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
+        transition: all 0.2s;
+      }
+      .btn-premium:hover {
+        background-color: #6941c6;
+        border-color: #6941c6;
+        color: #ffffff;
+      }
+    </style>
+  </head>
+  <body class="min-vh-100 d-flex align-items-center py-5">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-12 col-sm-10 col-md-8 col-lg-5">
+          <div class="card premium-card p-4 p-md-5">
+            <div class="mb-4">
+              <h1
+                class="h4 fw-bold text-dark mb-1"
+                style="letter-spacing: -0.5px"
+              >
+                Document Upload
+              </h1>
+              <p class="text-muted small mb-0">
+                Provide your information and official verification attachments.
+              </p>
+            </div>
+<div>
+  <% if (typeof error !== "undefined") { %>
+    <p class="text-danger"><%= error %></p>
+    <% } %>
+</div>
+            <form
+              action="/submitForm"
+              method="POST"
+              enctype="multipart/form-data"
+            >
+              <div class="mb-3">
+                <label for="nameinput" class="form-label-premium"
+                  >Full Name</label
+                >
+                <input
+                  type="text"
+                  name="username"
+                  class="form-control form-control-premium"
+                  id="nameinput"
+                  placeholder="e.g. Alexander Wright"
+                />
+              </div>
+
+              <div class="mb-3">
+                <label for="fileinput" class="form-label-premium"
+                  >Primary File</label
+                >
+                <input
+                  type="file"
+                  name="userFile"
+                  multiple="multiple"
+                  class="form-control form-control-premium"
+                  id="fileinput"
+                />
+              </div>
+
+              <div class="mb-4">
+                <label for="fileinput2" class="form-label-premium"
+                  >Supporting Documentation</label
+                >
+                <input
+                  type="file"
+                  multiple="multiple"
+                  name="userDocuments"
+                  class="form-control form-control-premium"
+                  id="fileinput2"
+                />
+              </div>
+
+              <div class="d-grid">
+                <input
+                  type="submit"
+                  class="btn btn-premium"
+                  value="Submit Documentation"
+                />
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
