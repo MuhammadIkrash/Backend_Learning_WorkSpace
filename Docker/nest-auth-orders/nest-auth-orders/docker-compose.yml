@@ -1,0 +1,47 @@
+services:
+  api:
+    build: .
+    container_name: nest-api
+    restart: unless-stopped
+    ports:
+      - "${PORT:-3000}:${PORT:-3000}"
+    environment:
+      PORT: ${PORT:-3000}
+      # Host is the compose service name "mongo" (resolved by Docker's DNS on app-network), not localhost.
+      MONGO_URI: mongodb://${MONGO_INITDB_ROOT_USERNAME:?set in .env}:${MONGO_INITDB_ROOT_PASSWORD:?set in .env}@mongo:27017/${MONGO_DB_NAME:-nest_shop}?authSource=admin
+      JWT_SECRET: ${JWT_SECRET:?set in .env}
+      JWT_EXPIRES_IN: ${JWT_EXPIRES_IN:-1d}
+      ADMIN_NAME: ${ADMIN_NAME:-Admin}
+      ADMIN_EMAIL: ${ADMIN_EMAIL:-}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-}
+    depends_on:
+      mongo:
+        condition: service_healthy
+    networks:
+      - app-network
+
+  mongo:
+    image: mongo:7
+    container_name: nest-mongo
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME:?set in .env}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD:?set in .env}
+    volumes:
+      - mongo-data:/data/db        # persistence
+    # No "ports:" on purpose: MongoDB is reachable only from inside app-network.
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping').ok"]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+      start_period: 15s
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  mongo-data:
